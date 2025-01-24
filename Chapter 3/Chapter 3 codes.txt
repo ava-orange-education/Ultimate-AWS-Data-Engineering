@@ -1,0 +1,63 @@
+
+def range_partitioner(data, num_partitions):
+"""
+Divides data into partitions based on ranges.
+"""
+partitions = [[] for in range(num_partitions)]
+sorted_data = sorted(data) # Sorting the data for range partitioning 
+partition_size = len(data) // num_partitions
+
+for i in range(num_partitions):
+	start_index = i * partition_size
+	# Ensure last partition includes remaining data
+	end_index = (i + 1) * partition_size if i < num_partitions - 1 else len(data) 
+	partitions[i] = sorted_data[start_index:end_index]
+
+return partitions
+
+
+
+##### Output #####
+Range Partitioning:
+Partition 0: [10, 12, 19]
+Partition 1: [24, 35, 42]
+Partition 2: [50, 67, 73, 89]
+
+-------------------------------------------------------
+
+def hash_partitioner(data, num_partitions):
+"""
+Divides data into partitions based on hash values.
+"""
+partitions = [[] for _ in range(num_partitions)] 
+
+for value in data:
+	partition_index = hash(value) % num_partitions 
+	partitions[partition_index].append(value)
+return partitions
+
+
+##### Output #####
+Hash Partitioning:
+Partition 0: [12, 42, 50]
+Partition 1: [19, 35, 67, 73]
+Partition 2: [10, 24, 89]
+
+--------------------------------------------
+
+def list_partitioner (data, num_partitions):
+"""
+Divides data into partitions based on a cyclic list assignment.
+"""
+partitions = [[] for in range(num_partitions)]
+for index, value in enumerate(data):
+	partition_index = index % num_partitions 
+	partitions [partition_index].append(value)
+return partitions
+
+##### Output #####
+List Partitioning:
+Partition : [42, 24, 67, 50]
+Partition 1: [12, 73, 10]
+Partition 2: [89, 35, 19]
+
